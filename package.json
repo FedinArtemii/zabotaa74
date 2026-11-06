@@ -1,0 +1,12 @@
+{
+  "name": "zabota74-wordpress",
+  "version": "1.0.0",
+  "private": true,
+  "description": "WordPress theme and static presentation for Забота, Копейск",
+  "scripts": {
+    "setup": "node tools/setup.mjs",
+    "start": "node tools/serve.mjs",
+    "export": "node tools/export.mjs",
+    "verify": "node tools/verify.mjs"
+  }
+}

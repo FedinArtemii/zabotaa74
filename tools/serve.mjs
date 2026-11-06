@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {spawn} from 'node:child_process';
+const root=process.cwd();
+if(!fs.existsSync('.local/wordpress/wp-load.php')) throw Error('Run npm run setup first.');
+fs.cpSync('theme/zabota74','.local/wordpress/wp-content/themes/zabota74',{recursive:true});
+const child=spawn(process.env.PHP_BIN||'php',['-c',path.join(root,'.local/php.ini'),'-S','127.0.0.1:8074','-t',path.join(root,'.local/wordpress'),path.join(root,'tools/router.php')],{stdio:'inherit'});
+console.log('Local WordPress: http://127.0.0.1:8074');
+for(const signal of ['SIGINT','SIGTERM']) process.on(signal,()=>child.kill());
+child.on('exit',code=>process.exit(code||0));
